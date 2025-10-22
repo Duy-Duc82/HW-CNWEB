@@ -1,106 +1,149 @@
-// script.js - add simple interactivity: search filter, toggle add-product form, and add new products
+// script.js - Tương tác cho trang sản phẩm
+// Mục tiêu:
+//  - Tìm kiếm / lọc sản phẩm theo tên (không phân biệt hoa thường)
+//  - Toggle (ẩn/hiện) form "Thêm sản phẩm" bằng JS
+//  - Thêm sản phẩm mới vào DOM khi submit form
+// Tất cả thao tác sử dụng DOM API (querySelector, addEventListener, classList,...)
 
-// Helpers to query elements
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+// Dùng DOMContentLoaded để đảm bảo DOM đã sẵn sàng trước khi truy xuất phần tử
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = $("#searchInput");
-  const searchBtn = $("#searchBtn");
-  const addProductBtn = $("#addProductBtn");
-  const addProductForm = $("#addProductForm");
-  const productList = $("#productList");
+  // --- Lấy các phần tử cần thiết từ DOM ---
+  var searchInput = document.getElementById('searchInput');
+  var searchBtn = document.getElementById('searchBtn');
+  var productList = document.getElementById('productList');
+  var addProductBtn = document.getElementById('addProductBtn');
+  var addProductForm = document.getElementById('addProductForm');
 
-  // Search/filter function
-  function filterProducts() {
-    const q = (searchInput.value || "").trim().toLowerCase();
-    const items = $$(".product-item");
-    if (!q) {
-      items.forEach((i) => (i.style.display = ""));
-      return;
-    }
-    items.forEach((item) => {
-      const nameEl = item.querySelector(".product-name");
-      const name = nameEl ? nameEl.textContent.toLowerCase() : "";
-      if (name.indexOf(q) !== -1) {
-        item.style.display = "";
+  // Nếu không có productList thì dừng (bảo vệ khi chạy trang khác)
+  if (!productList) return;
+
+  // Helper: lấy mảng các phần tử sản phẩm
+  function getProductItems() {
+    return Array.prototype.slice.call(document.querySelectorAll('.product-item'));
+  }
+
+  // Helper: kiểm tra 1 product element có chứa keyword trong .product-name hay không
+  function productMatches(productEl, keyword) {
+    var nameEl = productEl.querySelector('.product-name');
+    if (!nameEl) return false;
+    var text = (nameEl.textContent || nameEl.innerText || '').toLowerCase();
+    return text.indexOf((keyword || '').toLowerCase()) !== -1;
+  }
+
+  // Hàm lọc sản phẩm theo keyword (nếu keyword rỗng thì show tất cả)
+  function filterProducts(keyword) {
+    var items = getProductItems();
+    var k = (keyword || '').trim().toLowerCase();
+    items.forEach(function (item) {
+      if (!k || productMatches(item, k)) {
+        // Hiện phần tử (restore display mặc định)
+        item.style.display = '';
       } else {
-        item.style.display = "none";
+        // Ẩn phần tử
+        item.style.display = 'none';
       }
     });
   }
 
-  // Bind events for search: keyup and click
-  if (searchInput) {
-    searchInput.addEventListener("keyup", () => filterProducts());
-  }
-  if (searchBtn) {
-    searchBtn.addEventListener("click", (e) => {
+  // --- Bắt sự kiện cho tìm kiếm ---
+  if (searchBtn && searchInput) {
+    // Click vào nút Tìm sẽ gọi filter
+    searchBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      filterProducts();
+      filterProducts(searchInput.value);
     });
   }
 
-  // Toggle add-product form
+  if (searchInput) {
+    // Lắng nghe keyup để lọc realtime khi người dùng gõ
+    searchInput.addEventListener('keyup', function () {
+      filterProducts(searchInput.value);
+    });
+  }
+
+  // --- Toggle form Thêm sản phẩm ---
   if (addProductBtn && addProductForm) {
-    addProductBtn.addEventListener("click", () => {
-      addProductForm.classList.toggle("hidden");
-      // focus first input when shown
-      if (!addProductForm.classList.contains("hidden")) {
-        const first = addProductForm.querySelector("input, textarea");
+    addProductBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      // Toggle class 'hidden' (CSS .hidden { display: none; })
+      addProductForm.classList.toggle('hidden');
+      // Nếu mới hiện form, focus vào input tên
+      if (!addProductForm.classList.contains('hidden')) {
+        var first = addProductForm.querySelector('input, textarea');
         if (first) first.focus();
       }
     });
   }
 
-  // Handle add product form submission
+  // --- Xử lý submit form Thêm sản phẩm ---
   if (addProductForm) {
-    addProductForm.addEventListener("submit", (e) => {
+    addProductForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      const name = (document.getElementById("p-name").value || "").trim();
-      const desc = (document.getElementById("p-desc").value || "").trim();
-      const price = (document.getElementById("p-price").value || "").trim();
-      const img =
-        (document.getElementById("p-img").value || "").trim() ||
-        "https://via.placeholder.com/400x240?text=No+Image";
 
-      if (!name || !desc || !price) {
-        alert("Vui lòng điền tên, mô tả và giá.");
+      // Lấy dữ liệu từ form bằng DOM API
+      var name = (addProductForm.querySelector('#p-name') || {}).value || '';
+      var desc = (addProductForm.querySelector('#p-desc') || {}).value || '';
+      var price = (addProductForm.querySelector('#p-price') || {}).value || '';
+      var img = (addProductForm.querySelector('#p-img') || {}).value || '';
+
+      // Kiểm tra dữ liệu tối thiểu: tên là bắt buộc
+      if (!name.trim()) {
+        alert('Vui lòng nhập tên sản phẩm.');
         return;
       }
 
-      // Create article element
-      const art = document.createElement("article");
-      art.className = "card product-item";
+      // Tạo cấu trúc article.card tương tự HTML hiện có
+      var article = document.createElement('article');
+      article.className = 'card product-item';
 
-      const imgEl = document.createElement("img");
-      imgEl.src = img;
-      imgEl.alt = name;
+      // Figure + image + figcaption (sử dụng cùng class để CSS áp dụng)
+      var figure = document.createElement('figure');
+      figure.className = 'product-figure';
 
-      const h3 = document.createElement("h3");
-      h3.className = "product-name";
-      h3.textContent = name;
+      var image = document.createElement('img');
+      image.src = img || 'https://via.placeholder.com/400x240?text=No+Image';
+      image.alt = name;
+      figure.appendChild(image);
 
-      const pDesc = document.createElement("p");
+      var caption = document.createElement('figcaption');
+      caption.className = 'product-name';
+      caption.textContent = name;
+      figure.appendChild(caption);
+
+      article.appendChild(figure);
+
+      // Mô tả
+      var pDesc = document.createElement('p');
       pDesc.textContent = desc;
+      article.appendChild(pDesc);
 
-      const pPrice = document.createElement("p");
-      pPrice.className = "price";
-      pPrice.textContent = price;
+      // Giá
+      var pPrice = document.createElement('p');
+      pPrice.className = 'price';
+      pPrice.textContent = price ? price : '';
+      article.appendChild(pPrice);
 
-      art.appendChild(imgEl);
-      art.appendChild(h3);
-      art.appendChild(pDesc);
-      art.appendChild(pPrice);
+      // Thêm aria-labelledby cho accessibility (dùng id duy nhất)
+      var id = 'book-' + Date.now();
+      caption.id = id;
+      article.setAttribute('aria-labelledby', id);
 
-      productList.appendChild(art);
+      // Append vào productList
+      productList.appendChild(article);
 
-      // Clear form and hide
+      // Reset form và ẩn lại
       addProductForm.reset();
-      addProductForm.classList.add("hidden");
+      addProductForm.classList.add('hidden');
 
-      // If a search is active, re-run filter so new item may be hidden/shown correctly
-      filterProducts();
+      // Nếu đang có bộ lọc, chạy lại để trạng thái hiển thị đúng
+      if (searchInput && searchInput.value.trim()) {
+        filterProducts(searchInput.value);
+      }
     });
   }
+
+  // Khi load trang, đảm bảo hiển thị đầy đủ (clear filter)
+  filterProducts('');
 });

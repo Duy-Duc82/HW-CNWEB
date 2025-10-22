@@ -8,9 +8,10 @@
       name="description"
       content="Cửa hàng Sách ABC - lựa chọn sách hay cho mọi lứa tuổi."
     />
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Header: phần đầu trang, thường chứa tên cửa hàng và điều hướng chính -->
     <header>
       <div class="container">
         <h1>Cửa hàng Sách ABC</h1>
@@ -24,7 +25,9 @@
 
     <main>
       <div class="container">
+        <!-- Main: phần nội dung chính của trang -->
         <section class="hero" aria-labelledby="intro">
+          <!-- hero: mô tả ngắn, slogan của cửa hàng -->
           <h2 id="intro">Sách chọn lọc cho mọi nhà</h2>
           <p>
             Chúng tôi cung cấp sách thiếu nhi, tiểu thuyết, và sách chuyên ngành
@@ -48,52 +51,41 @@
           </div>
 
           <div class="products" id="productList">
+            <!-- Mỗi sản phẩm đặt trong thẻ <article> (semantic) với class .product-item -->
             <article class="card product-item" aria-labelledby="book1-title">
-              <img
-                src="https://via.placeholder.com/400x240?text=Sách+1"
-                alt="Bìa sách Lập Trình Cơ Bản"
-              />
-              <h3 id="book1-title" class="product-name">Lập Trình Cơ Bản</h3>
-              <img
-                src="https://via.placeholder.com/400x240?text=Sách+1"
-                alt="Bìa sách Lập Trình Cơ Bản"
-              />
-              <h3 id="book1-title">Lập Trình Cơ Bản</h3>
+              <figure class="product-figure">
+                <img src="image/artOfSport.jpg" alt="Bìa sách Nghệ thuật phân tích kèo bóng" />
+                <figcaption class="product-name" id="book1-title">nghệ thuật phân tích kèo bóng</figcaption>
+              </figure>
               <p>
-                Một cuốn sách hướng dẫn nhập môn lập trình dành cho người mới
-                bắt đầu, trình bày rõ ràng và có nhiều ví dụ thực tế.
+                Hướng dẫn phân tích kèo bóng đá, chiến lược quản lý rủi ro và
+                tư duy thống kê để ra quyết định cược thông minh hơn.
               </p>
-              <p class="price">₫199,000</p>
+              <p class="price">₫179,000</p>
             </article>
 
             <article class="card product-item" aria-labelledby="book2-title">
-              <img
-                src="https://via.placeholder.com/400x240?text=Sách+2"
-                alt="Bìa sách Tiểu Thuyết Tình Yêu"
-              />
-              <h3 id="book2-title" class="product-name">
-                Tiểu Thuyết Tình Yêu
-              </h3>
+              <figure class="product-figure">
+                <img src="image/futureTrade.jpg" alt="Bìa sách Futures Trading" />
+                <figcaption class="product-name" id="book2-title">future tính toán hay may rủi?</figcaption>
+              </figure>
               <p>
-                Một câu chuyện cảm động về những khúc quanh của cuộc đời và tình
-                yêu. Phù hợp cho độc giả yêu văn chương.
+                Tổng quan về giao dịch futures, phân tích rủi ro và phần thưởng,
+                giúp độc giả hiểu rõ bản chất của thị trường tương lai.
               </p>
-              <p class="price">₫129,000</p>
+              <p class="price">₫220,000</p>
             </article>
 
             <article class="card product-item" aria-labelledby="book3-title">
-              <img
-                src="https://via.placeholder.com/400x240?text=Sách+3"
-                alt="Bìa sách Kinh Tế Học Dựng Trên Dữ Liệu"
-              />
-              <h3 id="book3-title" class="product-name">
-                Kinh Tế Học Dựng Trên Dữ Liệu
-              </h3>
+              <figure class="product-figure">
+                <img src="image/readTheGamblerTaste.jpg" alt="Bìa sách The Gambler" />
+                <figcaption class="product-name" id="book3-title">những thứ chuyên gia không muốn bạn biết</figcaption>
+              </figure>
               <p>
-                Phân tích các phương pháp ứng dụng dữ liệu lớn trong kinh tế học
-                và quyết định kinh doanh hiện đại.
+                Góc nhìn bên trong về tâm lý cờ bạc và những chiến thuật mà các
+                chuyên gia sử dụng để ảnh hưởng quyết định của người chơi.
               </p>
-              <p class="price">₫249,000</p>
+              <p class="price">₫149,000</p>
             </article>
           </div>
         </section>
@@ -182,6 +174,6 @@
         </p>
       </div>
     </footer>
-    <!-- <script src="script.js"></script> -->
+    <script src="script.js"></script>
   </body>
 </html>
