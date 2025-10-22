@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa hàng Sách ABC</title>
+    <meta
+      name="description"
+      content="Cửa hàng Sách ABC - lựa chọn sách hay cho mọi lứa tuổi."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header: phần đầu trang, thường chứa tên cửa hàng và điều hướng chính -->
+    <header>
+      <div class="container">
+        <h1>Cửa hàng Sách ABC</h1>
+        <nav aria-label="chính">
+          <a href="#">Trang chủ</a>
+          <a href="#products">Sản phẩm</a>
+          <a href="#contact">Liên hệ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Main: phần nội dung chính của trang -->
+        <section class="hero" aria-labelledby="intro">
+          <!-- hero: mô tả ngắn, slogan của cửa hàng -->
+          <h2 id="intro">Sách chọn lọc cho mọi nhà</h2>
+          <p>
+            Chúng tôi cung cấp sách thiếu nhi, tiểu thuyết, và sách chuyên ngành
+            chất lượng. Giao hàng nhanh, chính sách đổi trả linh hoạt.
+          </p>
+        </section>
+
+        <section id="products" aria-labelledby="products-heading">
+          <h2 id="products-heading">Danh sách sản phẩm</h2>
+
+          <!-- Controls: search and add -->
+          <div class="controls">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm"
+            />
+            <button id="searchBtn">Tìm</button>
+            <button id="addProductBtn" type="button">Thêm sản phẩm</button>
+          </div>
+
+          <div class="products" id="productList">
+            <!-- Mỗi sản phẩm đặt trong thẻ <article> (semantic) với class .product-item -->
+            <article class="card product-item" aria-labelledby="book1-title">
+              <figure class="product-figure">
+                <img src="image/artOfSport.jpg" alt="Bìa sách Nghệ thuật phân tích kèo bóng" />
+                <figcaption class="product-name" id="book1-title">nghệ thuật phân tích kèo bóng</figcaption>
+              </figure>
+              <p>
+                Hướng dẫn phân tích kèo bóng đá, chiến lược quản lý rủi ro và
+                tư duy thống kê để ra quyết định cược thông minh hơn.
+              </p>
+              <p class="price">₫179,000</p>
+            </article>
+
+            <article class="card product-item" aria-labelledby="book2-title">
+              <figure class="product-figure">
+                <img src="image/futureTrade.jpg" alt="Bìa sách Futures Trading" />
+                <figcaption class="product-name" id="book2-title">future tính toán hay may rủi?</figcaption>
+              </figure>
+              <p>
+                Tổng quan về giao dịch futures, phân tích rủi ro và phần thưởng,
+                giúp độc giả hiểu rõ bản chất của thị trường tương lai.
+              </p>
+              <p class="price">₫220,000</p>
+            </article>
+
+            <article class="card product-item" aria-labelledby="book3-title">
+              <figure class="product-figure">
+                <img src="image/readTheGamblerTaste.jpg" alt="Bìa sách The Gambler" />
+                <figcaption class="product-name" id="book3-title">những thứ chuyên gia không muốn bạn biết</figcaption>
+              </figure>
+              <p>
+                Góc nhìn bên trong về tâm lý cờ bạc và những chiến thuật mà các
+                chuyên gia sử dụng để ảnh hưởng quyết định của người chơi.
+              </p>
+              <p class="price">₫149,000</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-heading">
+          <h2 id="contact-heading">Liên hệ / Đăng ký nhận tin</h2>
+          <form class="contact" action="#" method="post" novalidate>
+            <div>
+              <label for="name">Họ và tên</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Nguyễn Văn A"
+                required
+              />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@domain.com"
+                required
+              />
+            </div>
+            <div>
+              <label for="message">Nội dung</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Nhập tin nhắn hoặc ghi chú"
+                required
+              ></textarea>
+            </div>
+            <div>
+              <button type="submit">Gửi</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Hidden add-product form (toggled by JS) -->
+        <section aria-labelledby="add-product-heading">
+          <h2 id="add-product-heading" style="display: none">Thêm sản phẩm</h2>
+          <form
+            id="addProductForm"
+            class="contact hidden"
+            action="#"
+            method="post"
+          >
+            <div>
+              <label for="p-name">Tên sản phẩm</label>
+              <input type="text" id="p-name" name="p-name" required />
+            </div>
+            <div>
+              <label for="p-desc">Mô tả ngắn</label>
+              <textarea id="p-desc" name="p-desc" rows="3" required></textarea>
+            </div>
+            <div>
+              <label for="p-price">Giá (VNĐ)</label>
+              <input type="text" id="p-price" name="p-price" required />
+            </div>
+            <div>
+              <label for="p-img">URL ảnh (tùy chọn)</label>
+              <input
+                type="text"
+                id="p-img"
+                name="p-img"
+                placeholder="https://..."
+              />
+            </div>
+            <div>
+              <button type="submit">Thêm</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 Cửa hàng Sách ABC — Địa chỉ: 123 Đường Sách, Thành phố
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
