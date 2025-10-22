@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa hàng Sách ABC</title>
+    <meta
+      name="description"
+      content="Cửa hàng Sách ABC - lựa chọn sách hay cho mọi lứa tuổi."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Cửa hàng Sách ABC</h1>
+        <nav aria-label="chính">
+          <a href="#">Trang chủ</a>
+          <a href="#products">Sản phẩm</a>
+          <a href="#contact">Liên hệ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero" aria-labelledby="intro">
+          <h2 id="intro">Sách chọn lọc cho mọi nhà</h2>
+          <p>
+            Chúng tôi cung cấp sách thiếu nhi, tiểu thuyết, và sách chuyên ngành
+            chất lượng. Giao hàng nhanh, chính sách đổi trả linh hoạt.
+          </p>
+        </section>
+
+        <section id="products" aria-labelledby="products-heading">
+          <h2 id="products-heading">Danh sách sản phẩm</h2>
+
+          <!-- Controls: search and add -->
+          <div class="controls">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm"
+            />
+            <button id="searchBtn">Tìm</button>
+            <button id="addProductBtn" type="button">Thêm sản phẩm</button>
+          </div>
+
+          <div class="products" id="productList">
+            <article class="card product-item" aria-labelledby="book1-title">
+              <img
+                src="https://via.placeholder.com/400x240?text=Sách+1"
+                alt="Bìa sách Lập Trình Cơ Bản"
+              />
+              <h3 id="book1-title" class="product-name">Lập Trình Cơ Bản</h3>
+              <img
+                src="https://via.placeholder.com/400x240?text=Sách+1"
+                alt="Bìa sách Lập Trình Cơ Bản"
+              />
+              <h3 id="book1-title">Lập Trình Cơ Bản</h3>
+              <p>
+                Một cuốn sách hướng dẫn nhập môn lập trình dành cho người mới
+                bắt đầu, trình bày rõ ràng và có nhiều ví dụ thực tế.
+              </p>
+              <p class="price">₫199,000</p>
+            </article>
+
+            <article class="card product-item" aria-labelledby="book2-title">
+              <img
+                src="https://via.placeholder.com/400x240?text=Sách+2"
+                alt="Bìa sách Tiểu Thuyết Tình Yêu"
+              />
+              <h3 id="book2-title" class="product-name">
+                Tiểu Thuyết Tình Yêu
+              </h3>
+              <p>
+                Một câu chuyện cảm động về những khúc quanh của cuộc đời và tình
+                yêu. Phù hợp cho độc giả yêu văn chương.
+              </p>
+              <p class="price">₫129,000</p>
+            </article>
+
+            <article class="card product-item" aria-labelledby="book3-title">
+              <img
+                src="https://via.placeholder.com/400x240?text=Sách+3"
+                alt="Bìa sách Kinh Tế Học Dựng Trên Dữ Liệu"
+              />
+              <h3 id="book3-title" class="product-name">
+                Kinh Tế Học Dựng Trên Dữ Liệu
+              </h3>
+              <p>
+                Phân tích các phương pháp ứng dụng dữ liệu lớn trong kinh tế học
+                và quyết định kinh doanh hiện đại.
+              </p>
+              <p class="price">₫249,000</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-heading">
+          <h2 id="contact-heading">Liên hệ / Đăng ký nhận tin</h2>
+          <form class="contact" action="#" method="post" novalidate>
+            <div>
+              <label for="name">Họ và tên</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Nguyễn Văn A"
+                required
+              />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@domain.com"
+                required
+              />
+            </div>
+            <div>
+              <label for="message">Nội dung</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Nhập tin nhắn hoặc ghi chú"
+                required
+              ></textarea>
+            </div>
+            <div>
+              <button type="submit">Gửi</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Hidden add-product form (toggled by JS) -->
+        <section aria-labelledby="add-product-heading">
+          <h2 id="add-product-heading" style="display: none">Thêm sản phẩm</h2>
+          <form
+            id="addProductForm"
+            class="contact hidden"
+            action="#"
+            method="post"
+          >
+            <div>
+              <label for="p-name">Tên sản phẩm</label>
+              <input type="text" id="p-name" name="p-name" required />
+            </div>
+            <div>
+              <label for="p-desc">Mô tả ngắn</label>
+              <textarea id="p-desc" name="p-desc" rows="3" required></textarea>
+            </div>
+            <div>
+              <label for="p-price">Giá (VNĐ)</label>
+              <input type="text" id="p-price" name="p-price" required />
+            </div>
+            <div>
+              <label for="p-img">URL ảnh (tùy chọn)</label>
+              <input
+                type="text"
+                id="p-img"
+                name="p-img"
+                placeholder="https://..."
+              />
+            </div>
+            <div>
+              <button type="submit">Thêm</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 Cửa hàng Sách ABC — Địa chỉ: 123 Đường Sách, Thành phố
+        </p>
+      </div>
+    </footer>
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>

@@ -1,0 +1,189 @@
+/* style.css - moved from inline styles and improved for responsive layout */
+
+* {
+  box-sizing: border-box;
+}
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222;
+}
+body {
+  margin: 0;
+  line-height: 1.6;
+  background: #f7f7f8;
+}
+
+/* Header */
+header {
+  background: #2b6cb0;
+  color: #fff;
+  padding: 1rem;
+  position: sticky; /* keeps header visible */
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+nav a {
+  color: #e6f0ff;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Controls (search + add) */
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0.75rem 0;
+}
+.controls input[type="text"] {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccd0d6;
+}
+.controls button {
+  padding: 0.45rem 0.7rem;
+}
+
+/* Hero */
+.hero {
+  padding: 1.25rem 0;
+}
+.hero p {
+  margin-top: 0.25rem;
+  color: #333;
+}
+
+/* Products grid */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+article.card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+article.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+article.card h3 {
+  margin: 0.5rem 0;
+}
+article.card p {
+  margin: 0.4rem 0;
+  color: #444;
+}
+.price {
+  font-weight: 700;
+  color: #1a7a07;
+  margin-top: auto;
+}
+/* Hidden helper class */
+.hidden {
+  display: none !important;
+}
+
+/* Contact form */
+.contact {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  margin-top: 1rem;
+  max-width: 640px;
+}
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccd0d6;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+button {
+  background: #2b6cb0;
+  color: #fff;
+  padding: 0.6rem 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(1.05);
+}
+
+/* Footer */
+footer {
+  background: #111;
+  color: #ddd;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+footer p {
+  margin: 0;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Small screens adjustments */
+@media (max-width: 600px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav a {
+    margin: 6px 0;
+  }
+  header h1 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Extra small screens: hide non-essential hero paragraph to save space */
+@media (max-width: 420px) {
+  .hero p {
+    display: none;
+  }
+}
+
+/* Ensure images don't overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
