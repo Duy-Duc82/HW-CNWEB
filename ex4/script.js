@@ -79,84 +79,65 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Xử lý submit form Thêm sản phẩm ---
   if (addProductForm) {
-    // Lấy các trường mới (theo cập nhật HTML)
-    var newNameField = addProductForm.querySelector('#newName');
-    var newPriceField = addProductForm.querySelector('#newPrice');
-    var newDescField = addProductForm.querySelector('#newDesc');
-    var imgField = addProductForm.querySelector('#p-img');
-    var errorMsg = addProductForm.querySelector('#errorMsg');
-
-    // Nút Hủy (đóng form)
-    var cancelBtn = addProductForm.querySelector('#cancelBtn');
-    if (cancelBtn) {
-      cancelBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        addProductForm.reset();
-        addProductForm.classList.add('hidden');
-        if (errorMsg) errorMsg.textContent = '\u00A0';
-      });
-    }
-
     addProductForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      var name = (newNameField && newNameField.value) ? newNameField.value.trim() : '';
-      var priceRaw = (newPriceField && newPriceField.value) ? newPriceField.value.trim() : '';
-      var desc = (newDescField && newDescField.value) ? newDescField.value.trim() : '';
-      var img = (imgField && imgField.value) ? imgField.value.trim() : '';
+      // Lấy dữ liệu từ form bằng DOM API
+      var name = (addProductForm.querySelector('#p-name') || {}).value || '';
+      var desc = (addProductForm.querySelector('#p-desc') || {}).value || '';
+      var price = (addProductForm.querySelector('#p-price') || {}).value || '';
+      var img = (addProductForm.querySelector('#p-img') || {}).value || '';
 
-      // Validation: tên không được rỗng, giá phải là số > 0
-      var priceNum = Number(priceRaw);
-      if (!name) {
-        if (errorMsg) errorMsg.textContent = 'Tên sản phẩm không được để trống.';
-        return;
-      }
-      if (!priceRaw || isNaN(priceNum) || priceNum <= 0) {
-        if (errorMsg) errorMsg.textContent = 'Giá phải là số hợp lệ và lớn hơn 0.';
+      // Kiểm tra dữ liệu tối thiểu: tên là bắt buộc
+      if (!name.trim()) {
+        alert('Vui lòng nhập tên sản phẩm.');
         return;
       }
 
-      // Nếu hợp lệ, xóa thông báo lỗi
-      if (errorMsg) errorMsg.textContent = '\u00A0';
-
-      // Tạo article mới và chèn vào đầu danh sách (prepend)
+      // Tạo cấu trúc article.card tương tự HTML hiện có
       var article = document.createElement('article');
       article.className = 'card product-item';
 
+      // Figure + image + figcaption (sử dụng cùng class để CSS áp dụng)
       var figure = document.createElement('figure');
       figure.className = 'product-figure';
+
       var image = document.createElement('img');
       image.src = img || 'https://via.placeholder.com/400x240?text=No+Image';
       image.alt = name;
       figure.appendChild(image);
+
       var caption = document.createElement('figcaption');
       caption.className = 'product-name';
       caption.textContent = name;
       figure.appendChild(caption);
+
       article.appendChild(figure);
 
+      // Mô tả
       var pDesc = document.createElement('p');
       pDesc.textContent = desc;
       article.appendChild(pDesc);
 
+      // Giá
       var pPrice = document.createElement('p');
       pPrice.className = 'price';
-      pPrice.textContent = priceNum ? ('₫' + priceNum) : '';
+      pPrice.textContent = price ? price : '';
       article.appendChild(pPrice);
 
-      // id + aria-labelledby
+      // Thêm aria-labelledby cho accessibility (dùng id duy nhất)
       var id = 'book-' + Date.now();
       caption.id = id;
       article.setAttribute('aria-labelledby', id);
 
-      // Thêm lên đầu danh sách
-      productList.insertBefore(article, productList.firstChild);
+      // Append vào productList
+      productList.appendChild(article);
 
-      // Reset form, ẩn form
+      // Reset form và ẩn lại
       addProductForm.reset();
       addProductForm.classList.add('hidden');
 
-      // Đảm bảo chức năng tìm kiếm còn hoạt động: gọi filterProducts lại
+      // Nếu đang có bộ lọc, chạy lại để trạng thái hiển thị đúng
       if (searchInput && searchInput.value.trim()) {
         filterProducts(searchInput.value);
       }
